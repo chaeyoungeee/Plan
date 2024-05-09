@@ -18,6 +18,7 @@ public class Member {
     private Long id;
 
     private String username;
+    private String nickname;
     private String password;
 
     @OneToMany(mappedBy = "plan")

@@ -24,6 +24,7 @@ public class Plan {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    private String content;
     private Date planDate;
     private PlanStatus status;
 }
