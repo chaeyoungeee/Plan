@@ -1,0 +1,366 @@
+@import './base/normalize';
+@import './base/reset';
+
+$white: #ffff;
+$light-gray: #cdcdcd;
+$gray: #939598;
+$dark-gray: #494a4b;
+$blue: #527ceb;
+$basic-color: #eaedf3;
+$background: #f5f7fd;
+$radius: 0.5rem;
+$padding: 4rem;
+$margin: 3rem;
+$small-font-size: 0.55rem;
+$basic-font-size: 0.7rem;
+$big-font-size: 0.85rem;
+
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin hover-v1 {
+        background-color: rgba($color: #dfdfdf, $alpha: 0.2);
+        transform: scale(0.97);
+        transition: 0.3s;
+        border-radius: $radius;
+}
+
+@mixin hover-v2 {
+        filter: brightness(0.97);
+        transform: scale(0.97);
+        transition: 0.3s;
+        border-radius: $radius;
+}
+
+@mixin small-font {
+    font-size: $small-font-size;
+    color: $gray;
+}
+
+@mixin basic-font {
+    color: $dark-gray;
+    font-size: $basic-font-size;
+}
+
+@mixin big-font {
+    font-size: $big-font-size;
+    font-weight: 700;
+}
+
+body {
+    color: black;
+    font-size: $basic-font-size;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    background: $background;
+}
+
+.App {
+}
+
+.btn, input {
+    font-size:$basic-font-size !important;
+    border-radius: $radius !important;
+    border: none;
+}
+
+#navbar {
+    z-index: 2;
+    color: $gray;
+    display: flex;
+    background-color: $basic-color;
+    height: 3rem;
+
+    @include center();
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .nav {
+        margin: 0 4rem;
+    }
+}
+
+#calendar {
+    border: none !important;
+    margin: 1rem;
+    border-radius: $radius;
+    padding: 1.5rem;
+    background-color: white;
+
+    a {
+        color: black;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .fc-day-sun a {
+    color: red;
+    }
+    
+    /* 토요일 날짜: 파란색 */
+    .fc-day-sat a {
+        color: #478eff;
+    }
+
+    .fc-button {
+        background: none;
+        color: $gray;
+        border: none;
+    }
+
+    .fc-button:disabled {
+        opacity: 1;
+    }
+
+    .fc-toolbar-title {
+        font-size: 1.3rem;
+    }
+
+    .fc-scrollgrid {
+        font-size: $basic-font-size;
+    }
+
+    .fc-daygrid-day-top {
+        flex-direction: row;
+        justify-content: center;
+        margin: 0;
+        font-size: .6rem;
+        .fc-daygrid-day-number {
+            padding: 0;
+        }
+    }
+
+    .fc-day {
+        padding: 0.5rem !important;
+        .fc-event-main-frame {
+            text-align: center;
+        }
+    }
+
+    .fc-day:hover {
+        @include hover-v1();
+    }
+
+   
+    .fc-theme-standard, .fc-scrollgrid, .fc-theme-standard td, .fc-theme-standard th {
+        border: none;
+    }
+
+    .fc-day-today {
+        background: none;
+        .fc-daygrid-day-number {
+            background-color: $blue;
+            color: white;
+            border-radius: 100%;
+            width: 1rem;
+            height: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .fc-event {
+        margin: 0.15rem 0;
+    }
+
+}
+
+#login, #join {
+    margin: $margin;
+    padding: $padding;
+    border-radius: $radius;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+}
+
+#mypage {
+        .row {
+        margin: 0;
+    }
+    margin: $margin;
+}
+
+#profile {
+    border-radius: $radius;
+    background-color: white;
+    display: flex;
+    padding: 1rem;
+    .photo {
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: $light-gray;
+        border-radius: 100%;
+        @include center();
+        margin-right: 0.5rem;
+
+    }
+    .nickname {
+        @include center();
+        font-size: $basic-font-size;
+    }
+    margin-bottom: 1rem;
+        
+}
+
+.my {
+    display: flex;
+    justify-content: space-between;
+
+
+
+    #mycategory, #myfriends {
+        border-radius: $radius;
+        background-color: white;
+        flex-basis: 49.5%;
+        padding: 1rem;
+
+        .add-btn {
+            background-color: $light-gray;
+            height: 100%;
+            width: 1.5rem;
+            color: white;
+        }
+
+        .title {
+            height: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    }
+
+    #mycategory {
+        .title {
+            margin-bottom: 1rem;
+        }
+    }
+
+    #category {
+    width: 100%;
+    border-radius: $radius;
+    margin-bottom: 0.5rem;
+    padding: 0.4rem 0.6rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    .delete-btn {
+        color: $gray;
+        &:hover {
+            @include hover-v2();
+        }
+    }
+}
+
+    .friends {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0.5rem auto;
+        #friend {
+    
+            .profile {
+                border-radius: $radius;
+                padding: 0.5rem 1.7rem;
+    
+                flex-direction: column;
+                @include center();
+    
+                .photo {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    background-color: $light-gray;
+                    border-radius: 100%;
+                    @include center();
+                    margin-bottom: 0.3rem;
+                }
+    
+            }
+
+            &:hover {
+                @include hover-v1();
+            }
+        }
+    }
+
+
+
+
+}
+
+
+.my-btn {
+    @include center();
+    border-radius: $radius;
+    
+    &:hover {
+        @include hover-v2();
+    }
+
+}
+
+#modal {
+    position: fixed;
+    top: 0;
+    background-color: rgba($color: #000000, $alpha: 0.2);
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    @include center();
+
+    .screen {
+        position: relative;
+        border-radius: $radius;
+        width: 20rem;
+        height: 60%;
+        background-color: white;
+        padding: 1rem;
+
+        .plans {
+            overflow: auto;
+            height: 24.15rem;
+        }
+
+        .date {
+            @include big-font();
+        }
+        .d-day {
+            @include small-font();
+            margin-bottom: 0.4rem;
+        }
+
+        .add {
+            width: 287.8px;
+            position: absolute;
+            bottom: 0.4rem;
+        }
+    }
+}
+
+#rectangular {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color:$basic-color;
+    height: 2.5rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: $radius;
+    margin-bottom: 0.4rem;
+    .category {
+        @include small-font();
+    }
+    &:hover {
+        @include hover-v2();
+    }
+}
+
+
+

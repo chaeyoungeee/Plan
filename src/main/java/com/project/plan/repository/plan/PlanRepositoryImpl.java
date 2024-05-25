@@ -1,15 +1,18 @@
-package com.project.plan.repository;
+package com.project.plan.repository.plan;
 
 import com.project.plan.domain.Plan;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
+@Primary
 @RequiredArgsConstructor
-public class PlanRepository {
+public class PlanRepositoryImpl implements PlanRepository {
     private final EntityManager em;
 
     //플랜 저장
@@ -30,7 +33,9 @@ public class PlanRepository {
 
     //플랜 삭제
     public void delete(Long id) {
-        em.createQuery("delete from Plan p where p.id=:id", Plan.class)
-                .setParameter("id", id);
+        em.createQuery("delete from Plan p where p.id=:id")
+                .setParameter("id", id).executeUpdate();
     }
+
+    //미완료 플랜 찾기
 }
