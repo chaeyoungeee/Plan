@@ -1,12 +1,17 @@
 import axios from 'axios';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { deleteCategory } from '../store/user';
 
 export const Category = ({ category }) => {
+    const dispatch = useDispatch();
+
     const handleClick = async () => {
         console.log(category)
         await axios
         .delete(`/category/${category.categoryId}`
         ).then((res)=>{
+            dispatch(deleteCategory(category.categoryId))
            console.log(res.data) 
         }) 
     }

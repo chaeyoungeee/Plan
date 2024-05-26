@@ -8,8 +8,6 @@ import { Join } from './pages/Join';
 import { useEffect } from 'react';
 import { Mypage } from './pages/Mypage';
 import { Login } from './pages/Login';
-import { AddPlanModal } from './components/AddPlanModal';
-import { isDateBetween } from './function/isDateBetween';
 
 function App() {
     const user = useSelector((state) => state.user);
@@ -30,7 +28,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<></>} />
                 <Route path="/calendar" element={<Calendar />} />
-                <Route path="/mypage" element={user != null ? <Mypage /> : <Login />} />
+                <Route path="/mypage" element={user.userId != null ? <Mypage /> : <Login />} />
                 <Route path="/signup" element={<Join />} />
             </Routes>
         </div>
