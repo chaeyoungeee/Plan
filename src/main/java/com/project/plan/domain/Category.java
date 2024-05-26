@@ -1,16 +1,15 @@
 package com.project.plan.domain;
 
+import com.project.plan.dto.category.CategoryDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table
-@Getter
-@Setter
+@Data
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,5 +42,7 @@ public class Category {
         return newCategory;
     }
 
-
+    public CategoryDto toDto() {
+        return new CategoryDto(this);
+    }
 }

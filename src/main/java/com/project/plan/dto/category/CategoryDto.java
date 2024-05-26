@@ -13,7 +13,6 @@ public class CategoryDto {
     private String color;
     private Long userId;
 
-
     public CategoryDto(Category category) {
         categoryId = category.getId();
         name = category.getName();

@@ -1,15 +1,14 @@
 package com.project.plan.domain;
 
+import com.project.plan.dto.plan.PlanDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.text.ParseException;
 
 @Entity
 @Table
-@Getter
-@Setter
+@Data
 public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,4 +56,7 @@ public class Plan {
         category.getPlans().add(this);
     }
 
+    public PlanDto toDto() {
+        return new PlanDto(this);
+    }
 }
