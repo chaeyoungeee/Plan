@@ -12,6 +12,8 @@ public interface UserService {
 
     Optional<User> findByUsername(String username);
     Optional<User> findByNickname(String nickname);
+
+    Optional<User> findById(Long id);
     List<User> findUsers();
     void updateNickname(Long id, String nickname);
 }

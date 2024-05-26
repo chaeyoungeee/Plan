@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findById(Long id) {
+        return Optional.ofNullable(userRepository.findById(id));
+    }
+
+    @Override
     //전체 멤버 찾기
     public List<User> findUsers() {
         return userRepository.findAll();

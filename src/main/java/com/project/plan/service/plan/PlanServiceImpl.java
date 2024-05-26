@@ -3,13 +3,22 @@ package com.project.plan.service.plan;
 import com.project.plan.domain.Category;
 import com.project.plan.domain.Plan;
 import com.project.plan.domain.PlanStatus;
+import com.project.plan.domain.User;
+import com.project.plan.dto.plan.AddPlanRequest;
+import com.project.plan.dto.plan.PlanDto;
+import com.project.plan.repository.category.CategoryRepository;
 import com.project.plan.repository.plan.PlanRepository;
+import com.project.plan.repository.user.UserRepository;
+import com.project.plan.service.category.CategoryService;
+import com.project.plan.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Primary
@@ -17,10 +26,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlanServiceImpl implements PlanService {
     private final PlanRepository planRepository;
+    private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
 
 
     //플랜 저장
     @Transactional
+    public Long save(AddPlanRequest planDto) throws ParseException {
+        User user = userRepository.findById(planDto.getUserId());
+        Category category = categoryRepository.findById(planDto.getCategoryId());
+
+        Plan planEntity = Plan.createPlan(user, category, planDto.getStart(), planDto.getEnd(), planDto.getTitle());
+
+        planRepository.save(planEntity);
+
+        return planEntity.getId();
+    }
+
+    @Override
     public Long save(Plan plan) {
         planRepository.save(plan);
         return plan.getId();

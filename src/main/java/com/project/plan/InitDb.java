@@ -36,10 +36,10 @@ public class InitDb {
 
 
         public void dbInit1() throws ParseException {
-            User user = createUser("test1", "채영", "1234");
+            User user = User.createUser("test1", "채영", "1234");
             userService.join(user);
 
-            User user2 = createUser("test2", "지연", "1234");
+            User user2 = User.createUser("test2", "지연", "1234");
             userService.join(user2);
 
             Category category1 = Category.createCategory("할일", "#faebeb", user);
@@ -86,15 +86,6 @@ public class InitDb {
             Plan plan7 = Plan.createPlan(user2, category7, "2024-05-10", "2024-05-10", "친구");
             planService.save(plan7);
 
-        }
-
-        public User createUser(String username, String nickname, String password) {
-            User user = new User();
-            user.setUsername(username);
-            user.setNickname(nickname);
-            user.setPassword(password);
-
-            return user;
         }
     }
 }
