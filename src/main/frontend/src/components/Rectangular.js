@@ -5,15 +5,16 @@ export const Rectangular = ({type, data}) => {
 
 
     useEffect(()=>{
+        console.log(data)
         if (data != null) {
-            setColor(data.category.color);
+            setColor(data.color);
         }
         
     }, [])
     
     return (
         <div id="rectangular" style={{backgroundColor: color}}>
-            {type == "plan" ? <div className="category">{data.category.name}</div> : null}
+            {type == "plan" ? <div className="category">{data.categoryName}</div> : null}
 
             {type == "plan" ? <div className="title">{data.title}</div> : "+ 할 일을 추가하세요"}
         </div>

@@ -1,5 +1,5 @@
 import { Col } from "react-bootstrap";
-import { Category } from "./Category";
+import { CategoryV1 } from "./Category";
 import { FiPlus } from 'react-icons/fi';
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -21,7 +21,7 @@ export const MyCategory = () => {
                 </div>
             </div>
             {categories.map((category) => (
-                <Category key={category.id} category={category} />
+                <CategoryV1 key={category.id} category={category} />
             ))}
         </div>
     );

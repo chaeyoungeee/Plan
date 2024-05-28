@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public interface PlanService {
-    Long save(AddPlanRequest plan) throws ParseException;
+    PlanDto save(AddPlanRequest plan) throws ParseException;
     Long save(Plan plan);
     void delete(Long id);
     void update(Long id, String start, String end, String title, Category category);

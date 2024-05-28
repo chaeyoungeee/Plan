@@ -32,7 +32,7 @@ public class PlanServiceImpl implements PlanService {
 
     //플랜 저장
     @Transactional
-    public Long save(AddPlanRequest planDto) throws ParseException {
+    public PlanDto save(AddPlanRequest planDto) throws ParseException {
         User user = userRepository.findById(planDto.getUserId());
         Category category = categoryRepository.findById(planDto.getCategoryId());
 
@@ -40,7 +40,7 @@ public class PlanServiceImpl implements PlanService {
 
         planRepository.save(planEntity);
 
-        return planEntity.getId();
+        return planEntity.toDto();
     }
 
     @Override
