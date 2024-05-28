@@ -10,5 +10,7 @@ public interface PlanRepository {
     void save(Plan plan);
     Plan findById(Long id);
     List<Plan> findAll();
+
+    public List<Plan> findByMemberId(Long id);
     void delete(Long id);
 }

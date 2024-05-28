@@ -2,7 +2,10 @@ package com.project.plan.api;
 
 
 import com.project.plan.domain.User;
+import com.project.plan.dto.plan.PlanDto;
 import com.project.plan.dto.user.*;
+import com.project.plan.service.plan.PlanService;
+import com.project.plan.service.user.UserService;
 import com.project.plan.service.user.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,13 +13,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UserApiController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
+    private final PlanService planService;
 
     @PostMapping("/signup")
     public CreateUserResponse saveUser(@RequestBody @Valid CreateUserRequest req) {
@@ -51,11 +56,12 @@ public class UserApiController {
 
     @PostMapping("/friend")
     public FriendResponse addFriend(@RequestBody AddFriendRequest request) {
-         FriendResponse r=  userService.addFriend(request.getId(), request.getNickname());
+         return  userService.addFriend(request.getId(), request.getNickname());
+    }
 
-         log.info(userService.findById(1L).get().getFriends().toString());
-
-         return  r;
+    @GetMapping("/friend/{friendId}")
+    public List<PlanDto> getFriendPlan(@PathVariable("friendId") Long friendId) {
+        return planService.findByMemberId(friendId);
     }
 
 }

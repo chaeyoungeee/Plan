@@ -1,6 +1,7 @@
 package com.project.plan.repository.plan;
 
 import com.project.plan.domain.Plan;
+import com.project.plan.domain.User;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -28,6 +29,13 @@ public class PlanRepositoryImpl implements PlanRepository {
     //모든 플랜 찾기
     public List<Plan> findAll() {
         return em.createQuery("select p from Plan p", Plan.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Plan> findByMemberId(Long id) {
+        return em.createQuery("select p from Plan p where p.user.id = :id", Plan.class)
+                .setParameter("id", id)
                 .getResultList();
     }
 

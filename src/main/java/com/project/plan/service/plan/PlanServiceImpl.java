@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -63,6 +64,15 @@ public class PlanServiceImpl implements PlanService {
         plan.setEnd(end);
         plan.setTitle(title);
         plan.setCategory(category);
+    }
+
+    @Override
+    public List<PlanDto> findByMemberId(Long id) {
+        List<Plan> plans = planRepository.findByMemberId(id);
+        List<PlanDto> planDtos = plans.stream()
+                .map(PlanDto::new)
+                .collect(Collectors.toList());;
+        return planDtos;
     }
 
 
