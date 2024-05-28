@@ -2,10 +2,12 @@ export const INIT = "USER/INIT"
 export const DELETE_CATEGORY = 'USER/DELETE_CATEGORY';
 export const ADD_PLAN = 'USER/ADD_PLAN';
 export const ADD_CATEGORY = 'USER/ADD_CATEGORY'
+export const TOGGLE_STATUS = 'USER/TOGGLE_STATUS';
 export const initUser = user => ({type:INIT, user})
 export const deleteCategory = categoryId => ({ type: DELETE_CATEGORY, categoryId });
 export const addPlan = plan => ({ type: ADD_PLAN, plan})
 export const addCategory = category => ({ type: ADD_CATEGORY, category})
+export const toggleStatus = planId => ({type: TOGGLE_STATUS, planId})
 
 const initialState = {
     userId: null,
@@ -49,6 +51,17 @@ const user = (state = initialState, action) => {
                 ...state,
                 categories: [...state.categories, action.category],
             };
+
+        case TOGGLE_STATUS:
+             return {
+                 ...state,
+                 plans: state.plans.map((plan) =>
+                     plan.planId === action.planId
+                         ? { ...plan, status: plan.status === 'COMPLETED' ? 'INCOMPLETE' : 'COMPLETED' }
+                         : plan
+                 ),
+             };
+
 
         default:
             return state;

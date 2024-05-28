@@ -416,6 +416,7 @@ body {
     height: 2.5rem;
     padding: 0.4rem 0.6rem;
     border-radius: $radius;
+    color: rgba($color: #000000, $alpha: 0.5);
     margin-bottom: 0.4rem;
     .category {
         @include small-font();
