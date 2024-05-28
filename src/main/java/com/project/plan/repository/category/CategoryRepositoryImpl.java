@@ -27,7 +27,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     //모든 카테고리 찾기
     public List<Category> findAll() {
-        return em.createQuery("select c from Category c", Category.class)
+        return em.createQuery("select DISTINCT c from Category c join fetch c.plans", Category.class)
                 .getResultList();
     }
 

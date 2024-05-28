@@ -27,9 +27,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Plan> plans = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "master_id")
-    private User master;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "master_id")
+//    private User master;
 
 //    @OneToMany(mappedBy = "master", cascade = CascadeType.ALL)
 //    private List<User> friends = new ArrayList<>();;
@@ -42,7 +42,7 @@ public class User {
             name = "friends",
             joinColumns = @JoinColumn(name = "user_id")
     )
-    @Column(name = "friends")  // 컬렉션 값이 저장될 컬럼
+    @Column(name = "friends")
     private List<Friend> friends = new ArrayList<>();
 
     public static User createUser(String username, String nickname, String password) {

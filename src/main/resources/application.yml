@@ -21,6 +21,6 @@ spring:
     suffix: .html
 
 logging.level:
-  org.hibernate: trace
+#  org.hibernate: trace
   org.hibernate.SQL: debug
   org.hibernate.type: trace
