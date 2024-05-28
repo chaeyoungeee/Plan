@@ -17,9 +17,11 @@ export const CategoryV1 = ({ category }) => {
            console.log(res.data) 
         }) 
     }
+
     useEffect(()=>{
         console.log(category)
     })
+    
     return (
         <div id="category" style={{ backgroundColor: category.color }}>
             <div>{category.name}</div>

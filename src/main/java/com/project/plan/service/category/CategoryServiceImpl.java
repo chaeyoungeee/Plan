@@ -2,8 +2,13 @@ package com.project.plan.service.category;
 
 import com.project.plan.domain.Category;
 import com.project.plan.domain.Plan;
+import com.project.plan.domain.User;
+import com.project.plan.dto.category.AddCategoryRequest;
+import com.project.plan.dto.category.CategoryDto;
 import com.project.plan.repository.category.CategoryRepository;
+import com.project.plan.repository.user.UserRepository;
 import com.project.plan.service.plan.PlanService;
+import com.project.plan.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -19,14 +24,26 @@ import java.util.stream.Collectors;
 @Transactional
 public class CategoryServiceImpl implements CategoryService  {
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
     private final PlanService planService;
 
-
     //카테고리 저장
+    @Override
     @Transactional
-    public void save(Category category) {
+    public CategoryDto save(Category category) {
         categoryRepository.save(category);
+        return category.toDto();
     }
+
+    @Override
+    public CategoryDto save(AddCategoryRequest category) {
+        User user = userRepository.findById(category.getUserId());
+        Category categoryEntity = Category.createCategory(category.getName(), category.getColor(), user);
+        categoryRepository.save(categoryEntity);
+
+        return categoryEntity.toDto();
+    }
+
 
     public List<Category> findAll() {
         return categoryRepository.findAll();

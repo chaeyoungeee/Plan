@@ -254,7 +254,6 @@ body {
     }
 
     #category {
-    width: 100%;
     border-radius: $radius;
     margin-bottom: 0.5rem;
     padding: 0.4rem 0.6rem;
@@ -319,6 +318,7 @@ body {
 #modal {
     position: fixed;
     top: 0;
+    right: 0;
     background-color: rgba($color: #000000, $alpha: 0.2);
     width: 100%;
     height: 100%;
@@ -360,21 +360,24 @@ body {
 
         .title {
             font-weight: 700;
-            margin-bottom: 0.6rem;
         }
 
 
         .categories {
+
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
         #category-v2 {
             border-radius: $radius;
             background-color: $light-gray-v1;
             padding: 1rem;
+            aspect-ratio: 1;
+            width: calc(25% - 0.6rem); /* 한 줄에 4개가 들어가도록 설정, 1rem은 각 요소 간의 간격을 조정하기 위함 */
+         /* 각 요소 간의 간격을 위한 마진 */
+            margin-top: 0.6rem;
             display: flex;
             flex-direction: column;
-            width: 21%;
-            aspect-ratio: 1;
             @include center();
             &:hover {
                 @include hover-v2();
@@ -428,5 +431,26 @@ body {
     overflow: visible !important;
 }
 
+.category-screen {
+    width: 20rem;
 
+    #color {
+        position: relative;
+        top: 0.1rem;
+        right: 0.6rem;
+        padding: 0;
+        margin: 0;
 
+        border-radius: 1rem !important;
+        width: 1rem;
+        height: 1.2rem;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: transparent;
+
+        &::-webkit-color-swatch {
+        border-radius: 100%;
+        border: none;
+    }
+    }
+}

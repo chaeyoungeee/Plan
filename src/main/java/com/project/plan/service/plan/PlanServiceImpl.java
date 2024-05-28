@@ -32,11 +32,11 @@ public class PlanServiceImpl implements PlanService {
 
     //플랜 저장
     @Transactional
-    public PlanDto save(AddPlanRequest planDto) throws ParseException {
-        User user = userRepository.findById(planDto.getUserId());
-        Category category = categoryRepository.findById(planDto.getCategoryId());
+    public PlanDto save(AddPlanRequest plan) throws ParseException {
+        User user = userRepository.findById(plan.getUserId());
+        Category category = categoryRepository.findById(plan.getCategoryId());
 
-        Plan planEntity = Plan.createPlan(user, category, planDto.getStart(), planDto.getEnd(), planDto.getTitle());
+        Plan planEntity = Plan.createPlan(user, category, plan.getStart(), plan.getEnd(), plan.getTitle());
 
         planRepository.save(planEntity);
 
