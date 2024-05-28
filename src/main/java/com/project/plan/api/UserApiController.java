@@ -39,17 +39,12 @@ public class UserApiController {
 
     @PostMapping("/login")
     public UserDto login(@RequestBody @Valid CreateUserRequest req) throws AuthenticationException {
-        Optional<User> user = userService.findByUsername(req.getUsername()).stream().findFirst();
-
-//        log.info(String.valueOf(user.get().getPlans().size()));
-
-
-
-        if (user.isPresent()) {
-            User u = user.get();
-            if (req.getPassword().equals(u.getPassword())) {
-                return new UserDto(u);
-            }
+        User user = userService.findByUsername(req.getUsername())
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new AuthenticationException("존재하지 않는 아이디입니다."));
+        if (req.getPassword().equals(user.getPassword())) {
+            return new UserDto(user);
         }
         throw new AuthenticationException("아이디나 비밀번호가 틀렸습니다.");
     }
