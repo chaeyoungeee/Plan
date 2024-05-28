@@ -8,8 +8,6 @@ export const CategoryV1 = ({ category }) => {
     const dispatch = useDispatch();
 
     const handleClick = async () => {
-        console.log(category)
-        console.log(category.categoryId);
         await axios
         .delete(`/category/${category.categoryId}`
         ).then((res)=>{
@@ -21,7 +19,7 @@ export const CategoryV1 = ({ category }) => {
     useEffect(()=>{
         console.log(category)
     })
-    
+
     return (
         <div id="category" style={{ backgroundColor: category.color }}>
             <div>{category.name}</div>

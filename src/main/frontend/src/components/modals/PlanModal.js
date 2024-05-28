@@ -3,7 +3,7 @@ import { Rectangular } from '../Rectangular';
 import { useState } from 'react';
 import { SelectCategoryModal } from './SelectCategoryModal';
 
-export const PlanModal = ({ date, plans, setShowPlanModal }) => {
+export const PlanModal = ({ isFriend, date, plans, setShowPlanModal }) => {
     const handleClick = (e) => {
         setShowPlanModal(false);
     };
@@ -15,7 +15,6 @@ export const PlanModal = ({ date, plans, setShowPlanModal }) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleAddBtnClick = (e) => {
-        console.log(1);
         setShowModal(true);
     };
 
@@ -30,9 +29,9 @@ export const PlanModal = ({ date, plans, setShowPlanModal }) => {
                             ? plans.map((plan) => <Rectangular key={plan.id} type={'plan'} data={plan} />)
                             : null}
                     </div>
-                    <div className="add" onClick={handleAddBtnClick}>
+                    {isFriend ?null:<div className="add" onClick={handleAddBtnClick}>
                         <Rectangular type={'add'}></Rectangular>
-                    </div>
+                    </div>}
                 </div>
             </div>
             {showModal ? <SelectCategoryModal setShowPlanModal={setShowPlanModal} setShowCategoryModal={setShowModal} date={date} /> : null}

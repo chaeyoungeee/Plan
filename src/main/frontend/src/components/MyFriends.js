@@ -1,22 +1,10 @@
 import { Row } from 'react-bootstrap';
 import { FiPlus } from 'react-icons/fi';
-import { Friends } from './Friends';
+import { Friend } from './Friend';
+import { useSelector } from 'react-redux';
 
 export const MyFriends = () => {
-    const frineds = [
-        {
-            id: 1,
-            nickname: '채영',
-        },
-        {
-            id: 2,
-            nickname: '지연',
-        },
-        {
-            id: 3,
-            nickname: '유빈',
-        },
-    ];
+    const friends = useSelector(state=>state.user.friends)
     return (
         <div id="myfriends">
             <div className="title">
@@ -26,8 +14,8 @@ export const MyFriends = () => {
                 </div>
             </div>
             <div className='friends'>
-                {frineds.map((friend) => (
-                    <Friends key={friend.id} friend={friend} />
+                {friends.map((friend) => (
+                    <Friend key={friend.id} friend={friend} />
                 ))}
             </div>
         </div>
