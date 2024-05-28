@@ -86,6 +86,7 @@ public class InitDb {
             Plan plan7 = Plan.createPlan(user2, category7, "2024-05-10", "2024-05-10", "친구");
             planService.save(plan7);
 
+            userService.addFriend(user.getId(), user2.getNickname());
         }
     }
 }

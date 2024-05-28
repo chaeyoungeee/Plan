@@ -45,4 +45,7 @@ public class Category {
     public CategoryDto toDto() {
         return new CategoryDto(this);
     }
+
+    public static class FriendInfo {
+    }
 }

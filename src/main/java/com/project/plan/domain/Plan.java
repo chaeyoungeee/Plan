@@ -59,4 +59,17 @@ public class Plan {
     public PlanDto toDto() {
         return new PlanDto(this);
     }
+
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", start='" + start + '\'' +
+                ", end='" + end + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
 }

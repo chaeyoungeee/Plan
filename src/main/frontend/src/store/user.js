@@ -11,6 +11,7 @@ const initialState = {
     userId: null,
     nickname: null,
     plans: null,
+    friends: null,
     categories: null
 }
 
@@ -24,6 +25,7 @@ const user = (state = initialState, action) => {
                 nickname: action.user.nickname,
                 plans: action.user.plans,
                 categories: action.user.categories,
+                friends: action.user.friends
             };
 
         case DELETE_CATEGORY:

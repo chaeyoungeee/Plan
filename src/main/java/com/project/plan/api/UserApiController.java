@@ -2,9 +2,7 @@ package com.project.plan.api;
 
 
 import com.project.plan.domain.User;
-import com.project.plan.dto.user.CreateUserRequest;
-import com.project.plan.dto.user.CreateUserResponse;
-import com.project.plan.dto.user.UserDto;
+import com.project.plan.dto.user.*;
 import com.project.plan.service.user.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +49,13 @@ public class UserApiController {
         throw new AuthenticationException("아이디나 비밀번호가 틀렸습니다.");
     }
 
+    @PostMapping("/friend")
+    public FriendResponse addFriend(@RequestBody AddFriendRequest request) {
+         FriendResponse r=  userService.addFriend(request.getId(), request.getNickname());
 
+         log.info(userService.findById(1L).get().getFriends().toString());
+
+         return  r;
+    }
 
 }

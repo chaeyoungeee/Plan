@@ -31,12 +31,19 @@ public class User {
     @JoinColumn(name = "master_id")
     private User master;
 
-    @OneToMany(mappedBy = "master", cascade = CascadeType.ALL)
-    private List<User> following = new ArrayList<>();;
-
+//    @OneToMany(mappedBy = "master", cascade = CascadeType.ALL)
+//    private List<User> friends = new ArrayList<>();;
+//
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Category> categories = new ArrayList<>();;
 
+    @ElementCollection
+    @CollectionTable(
+            name = "friends",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "friends")  // 컬렉션 값이 저장될 컬럼
+    private List<Friend> friends = new ArrayList<>();
 
     public static User createUser(String username, String nickname, String password) {
         User user = new User();
@@ -49,6 +56,20 @@ public class User {
 
     public UserDto toDto() {
         return new UserDto(this);
+    }
+
+    public void addFriend(Long friendId, String friendName) {
+        this.friends.add(new Friend(friendId, friendName));
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
 }

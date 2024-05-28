@@ -19,10 +19,15 @@ public class UserDto {
     private String nickname;
     private List<PlanDto> plans;
     private List<CategoryDto> categories;
+    private List<FriendResponse> friends;
 
     public UserDto(User user) {
         userId = user.getId();
         nickname = user.getNickname();
+        friends = user.getFriends()
+                .stream()
+                .map(FriendResponse::new)
+                .collect(Collectors.toList());
         plans = user.getPlans()
                 .stream()
                 .map(PlanDto::new)
