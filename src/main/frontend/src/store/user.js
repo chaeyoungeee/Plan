@@ -25,7 +25,7 @@ const user = (state = initialState, action) => {
             };
 
         case DELETE_CATEGORY:
-            const updatePlans = state.plans.filter((plan) => plan.category.categoryId !== action.categoryId)
+            const updatePlans = state.plans.filter((plan) => plan.categoryId !== action.categoryId)
             const updateCategories = state.categories.filter((category) => category.categoryId !== action.categoryId)
 
             return {
