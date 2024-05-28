@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.hibernate.query.sqm.tree.SqmNode.log;
+
 @Service
 @Primary
 @Transactional(readOnly = true)
@@ -66,6 +68,14 @@ public class PlanServiceImpl implements PlanService {
         plan.setCategory(category);
     }
 
+    @Transactional
+    @Override
+    public void toggle(Long id) {
+        Plan plan = planRepository.findById(id);
+        plan.setStatus(plan.getStatus().toggle());
+        log.info(plan.getStatus().toString());
+    }
+
     @Override
     public List<PlanDto> findByMemberId(Long id) {
         List<Plan> plans = planRepository.findByMemberId(id);
@@ -76,12 +86,6 @@ public class PlanServiceImpl implements PlanService {
     }
 
 
-    //플랜 상태 수정
-    @Transactional
-    public void updateStatus(Long id, PlanStatus status) {
-        Plan plan = planRepository.findById(id);
-        plan.setStatus(status);
-    }
 
     public Plan findById(Long id) {
         return planRepository.findById(id);

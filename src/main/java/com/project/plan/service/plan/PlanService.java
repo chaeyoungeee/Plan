@@ -18,8 +18,8 @@ public interface PlanService {
     void delete(Long id);
     void update(Long id, String start, String end, String title, Category category);
 
+    void toggle(Long id);
     List<PlanDto> findByMemberId(Long id);
-    void updateStatus(Long id, PlanStatus status);
     Plan findById(Long id);
     List<Plan> findAll();
 }
