@@ -5,6 +5,7 @@ import com.project.plan.domain.Plan;
 import com.project.plan.domain.User;
 import com.project.plan.dto.category.AddCategoryRequest;
 import com.project.plan.dto.category.CategoryDto;
+import com.project.plan.dto.category.UpdateCategoryRequest;
 import com.project.plan.repository.category.CategoryRepository;
 import com.project.plan.repository.user.UserRepository;
 import com.project.plan.service.plan.PlanService;
@@ -68,9 +69,9 @@ public class CategoryServiceImpl implements CategoryService  {
 
     //카테고리 수정(이름, 색상)
     @Transactional
-    public void update(Long id, String name, String color) {
+    public void update(Long id, UpdateCategoryRequest request) {
         Category category = categoryRepository.findById(id);
-        category.setName(name);
-        category.setColor(color);
+        category.setName(request.getName());
+        category.setColor(request.getColor());
     }
 }

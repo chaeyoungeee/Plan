@@ -4,6 +4,7 @@ import com.project.plan.domain.Category;
 import com.project.plan.domain.Plan;
 import com.project.plan.dto.category.AddCategoryRequest;
 import com.project.plan.dto.category.CategoryDto;
+import com.project.plan.dto.category.UpdateCategoryRequest;
 import com.project.plan.dto.plan.PlanDto;
 import com.project.plan.service.category.CategoryService;
 import com.project.plan.service.category.CategoryServiceImpl;
@@ -29,6 +30,11 @@ public class CategoryApiController {
                 .map(CategoryDto::new)
                 .toList();
         return new Result(collect);
+    }
+
+    @PutMapping("/category/{categoryId}")
+    public void updateCategory(@PathVariable("categoryId") Long categoryId, @RequestBody UpdateCategoryRequest request) {
+        categoryService.update(categoryId, request);
     }
 
     @PostMapping("/category")

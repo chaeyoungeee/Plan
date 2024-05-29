@@ -3,6 +3,7 @@ package com.project.plan.service.category;
 import com.project.plan.domain.Category;
 import com.project.plan.dto.category.AddCategoryRequest;
 import com.project.plan.dto.category.CategoryDto;
+import com.project.plan.dto.category.UpdateCategoryRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface CategoryService {
     public Optional<Category> findById(Long id);
     public void delete(Long id);
 
-    public void update(Long id, String name, String color);
+    public void update(Long id, UpdateCategoryRequest request);
 }
