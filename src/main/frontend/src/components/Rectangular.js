@@ -6,12 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleStatus } from '../store/user';
 import { UpdatePlanModal } from './modals/UpdatePlanModal';
 
-export const Rectangular = ({ type, data }) => {
+export const Rectangular = ({ isFriend, type, data }) => {
     const dispatch = useDispatch();
     const plans = useSelector((state) => state.user.plans);
     const [color, setColor] = useState('#eaedf3');
-
-    let plan = null;
+    const [status, setStatus] = useState('')
 
     const [showUpdateModal, setShowUpdateModal] = useState(false);
 
@@ -23,29 +22,24 @@ export const Rectangular = ({ type, data }) => {
         e.stopPropagation();
         await axios.put(`/plan/status/${data.planId}`).then((res) => {
             dispatch(toggleStatus(data.planId));
+            if (status === 'INCOMPLETE') setStatus('COMPLETED')
+            else setStatus('INCOMPLETE');
         })
     };
 
     useEffect(() => {
         if (data) {
+                    console.log(1);
+                    console.log(isFriend);
+            setStatus(data.status);
             setColor(data.color);
         }
     }, []);
 
 
-
     if ((!data || !plans.length) && type == 'plan') {
-
             return null;
     }
-
-   if (type == 'plan') {
-        plan = plans.find((plan) => plan.planId === data.planId);
-   }
-
-   if (type =='plan' && plan == null) {
-        return null;
-   }
 
 
     return (
@@ -57,12 +51,17 @@ export const Rectangular = ({ type, data }) => {
                 style={{ backgroundColor: color }}
             >
                 <div>
-                    {type === 'plan' ? <div className="category">{plan.categoryName}</div> : null}
-                    {type === 'plan' ? <div className="title">{plan.title}</div> : '+ 할 일을 추가하세요'}
+                    {type === 'plan' ? <div className="category">{data.categoryName}</div> : null}
+                    {type === 'plan' ? <div className="title">{data.title}</div> : 
+                    (
+                        isFriend === true ?
+                        '+ 함께 할 일을 추가하세요.':                        
+                        '+ 할 일을 추가하세요.'
+                    )}
                 </div>
                 <div onClick={handleCheckClick}>
-                    {type === 'plan' ? (
-                        plan.status === 'INCOMPLETE' ? (
+                    {type === 'plan' && !isFriend ? (
+                        status === 'INCOMPLETE' ? (
                             <MdCheckBoxOutlineBlank size={15} />
                         ) : (
                             <MdCheckBox size={15} />
@@ -70,7 +69,7 @@ export const Rectangular = ({ type, data }) => {
                     ) : null}
                 </div>
             </div>
-            { showUpdateModal ?            <UpdatePlanModal setShowModal={setShowUpdateModal} plan={plan} /> : null}
+            { showUpdateModal && !isFriend ?            <UpdatePlanModal setShowModal={setShowUpdateModal} plan={data} /> : null}
         </div>
     );
 };

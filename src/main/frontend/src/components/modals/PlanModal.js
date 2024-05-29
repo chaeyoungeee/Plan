@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Rectangular } from '../Rectangular';
 import { useEffect, useState } from 'react';
 import { SelectCategoryModal } from './SelectCategoryModal';
 import { isDateBetween } from '../../function/isDateBetween';
 
 export const PlanModal = ({ isFriend, date, setShowPlanModal }) => {
-    const planList = useSelector(state => state.user.plans)
-    const [plans, setPlans] = useState([]); 
+    const plans = useSelector((state) => state.dayPlans);
+
     const handleClick = (e) => {
         setShowPlanModal(false);
     };
@@ -21,14 +21,6 @@ export const PlanModal = ({ isFriend, date, setShowPlanModal }) => {
         setShowModal(true);
     };
 
-    useEffect(()=>{
-        if(planList) {
-            setPlans(planList.filter((plan) => isDateBetween(plan.start, plan.end, date)));
-            console.log(planList)
-              
-        }
-    }, [planList, date])
-
     return (
         <>
             <div id="modal" onClick={handleClick}>
@@ -37,15 +29,23 @@ export const PlanModal = ({ isFriend, date, setShowPlanModal }) => {
                     <div className="d-day">D + 6</div>
                     <div className="plans">
                         {plans != null
-                            ? plans.map((plan) => <Rectangular key={plan.id} type={'plan'} data={plan} />)
+                            ? plans.map((plan) => (
+                                  <Rectangular key={plan.id} isFriend={isFriend} type={'plan'} data={plan} />
+                              ))
                             : null}
                     </div>
-                    {isFriend ? null:<div className="add" onClick={handleAddBtnClick}>
-                        <Rectangular type={'add'}></Rectangular>
-                    </div>}
+                    <div className="add" onClick={handleAddBtnClick}>
+                        <Rectangular isFriend={isFriend} type={'add'}></Rectangular>
+                    </div>
                 </div>
             </div>
-            {showModal ? <SelectCategoryModal setShowPlanModal={setShowPlanModal} setShowCategoryModal={setShowModal} date={date} /> : null}
+            {showModal ? (
+                <SelectCategoryModal
+                    setShowPlanModal={setShowPlanModal}
+                    setShowCategoryModal={setShowModal}
+                    date={date}
+                />
+            ) : null}
         </>
     );
 };
