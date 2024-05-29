@@ -57,16 +57,13 @@ public class CategoryServiceImpl implements CategoryService  {
     //카테고리 삭제
     @Transactional
     public void delete(Long id) {
-        Optional<Category> categoryOptional = findById(id);
-        if (categoryOptional.isPresent()) {
-            Category category = categoryOptional.get();
-            List<Plan> plans = category.getPlans();
-            for (Plan plan : plans) {
-                planService.delete(plan.getId());
-            }
-        }
+        Category category = findById(id).orElseThrow(() -> new NullPointerException("해당 카테고리가 존재하지 않습니다."));
 
-        categoryRepository.delete(id);
+        List<Plan> plans = category.getPlans();
+        for (Plan plan : plans) {
+            planService.delete(plan.getId());
+            categoryRepository.delete(id);
+        }
     }
 
     //카테고리 수정(이름, 색상)

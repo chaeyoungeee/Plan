@@ -74,7 +74,7 @@ public class InitDb {
             Plan plan3 = Plan.createPlan(user, category3, "2024-05-26", "2024-05-26", "과외");
             planService.save(plan3);
 
-            Plan plan4 = Plan.createPlan(user2, category4, "2024-05-28", "2024-05-31", "제주도 여행");
+            Plan plan4 = Plan.createPlan(user2, category7, "2024-05-28", "2024-05-31", "제주도 여행");
             planService.save(plan4);
 
             Plan plan5 = Plan.createPlan(user2, category5, "2024-05-19", "2024-05-19", "식물 물주기");

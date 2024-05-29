@@ -53,12 +53,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByNickname(nickname);
     }
 
+    @Transactional
     @Override
     public FriendResponse addFriend(Long id, String nickname) {
         User user = userRepository.findById(id);
-
         User friend = userRepository.findByNickname(nickname).orElseThrow(NoSuchElementException::new);
         user.addFriend(friend.getId(), nickname);
+        friend.addFriend(id, user.getNickname());
         return new FriendResponse(friend.getId(), nickname);
     }
 
