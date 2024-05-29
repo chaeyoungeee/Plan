@@ -29,7 +29,7 @@ export const PlanModal = ({ isFriend, date, plans, setShowPlanModal }) => {
                             ? plans.map((plan) => <Rectangular key={plan.id} type={'plan'} data={plan} />)
                             : null}
                     </div>
-                    {isFriend ?null:<div className="add" onClick={handleAddBtnClick}>
+                    {isFriend ? null:<div className="add" onClick={handleAddBtnClick}>
                         <Rectangular type={'add'}></Rectangular>
                     </div>}
                 </div>

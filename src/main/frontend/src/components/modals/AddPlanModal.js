@@ -7,12 +7,7 @@ import { FiSend } from 'react-icons/fi';
 import { addPlan } from "../../store/user";
 
 export const AddPlanModal = ({setShowPlanModal, setShowCategoryModal, setShowAddModal, date, category}) => {
-    // const date = "2024-04-30"
-    // const category = {
-    //     categoryId: 1,
-    //     color: '#e1effe',
-    //     name: '공부' 
-    // }
+   
     const [formData, setFormData] = useState({ title: '', start: date, end: date });
     const userId = useSelector(state => state.user.userId)
 

@@ -382,14 +382,13 @@ body {
         .categories {
 
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             flex-wrap: wrap;
         #category-v2 {
             border-radius: $radius;
             background-color: $light-gray-v1;
             padding: 1rem;
             width: calc(25% - 0.6rem);
-            flex-grow: 1;
             height: 4rem;
             margin: 0.3rem;
             display: flex;
