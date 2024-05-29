@@ -6,6 +6,7 @@ import com.project.plan.domain.PlanStatus;
 import com.project.plan.domain.User;
 import com.project.plan.dto.plan.AddPlanRequest;
 import com.project.plan.dto.plan.PlanDto;
+import com.project.plan.dto.plan.UpdatePlanRequest;
 import com.project.plan.repository.category.CategoryRepository;
 import com.project.plan.repository.plan.PlanRepository;
 import com.project.plan.repository.user.UserRepository;
@@ -56,6 +57,15 @@ public class PlanServiceImpl implements PlanService {
     @Transactional
     public void delete(Long id) {
         planRepository.delete(id);
+    }
+
+    @Transactional
+    @Override
+    public void update(Long id, UpdatePlanRequest request) {
+        Plan plan = planRepository.findById(id);
+        plan.setTitle(request.getTitle());
+        plan.setStart(request.getStart());
+        plan.setEnd(request.getEnd());
     }
 
     //플랜 수정(날짜, 내용, 날짜)
