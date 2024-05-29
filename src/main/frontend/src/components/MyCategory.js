@@ -9,10 +9,6 @@ export const MyCategory = () => {
     
     const categories = useSelector((state)=> state.user.categories)
 
-    useEffect(()=>{
-        console.log(categories)
-    })
-
     const [showAddModal, setShowAddModal] = useState(false)
 
     const handleClick = () => {

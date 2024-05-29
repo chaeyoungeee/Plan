@@ -197,11 +197,21 @@ body {
     margin: $margin;
 }
 
-#profile {
+.profile-box {
     border-radius: $radius;
     background-color: white;
-    display: flex;
     padding: 1rem;
+    margin-bottom: 1rem;
+
+    .logout-btn {
+        color: $gray;
+        &:hover {
+            @include hover-v2();
+        }
+    }
+
+    #profile {
+    display: flex;
     .photo {
         width: 1.5rem;
         height: 1.5rem;
@@ -215,8 +225,9 @@ body {
         @include center();
         font-size: $basic-font-size;
     }
-    margin-bottom: 1rem;
         
+}
+
 }
 
 .my {
@@ -228,7 +239,7 @@ body {
     #mycategory, #myfriends {
         border-radius: $radius;
         background-color: white;
-        flex-basis: 49.5%;
+        flex-basis: calc(50% - 0.5rem);
         padding: 1rem;
 
         .add-btn {
@@ -359,6 +370,7 @@ body {
         height: auto;
 
         .title {
+            margin-left: 0.3rem;
             font-weight: 700;
         }
 
@@ -372,10 +384,10 @@ body {
             border-radius: $radius;
             background-color: $light-gray-v1;
             padding: 1rem;
-            aspect-ratio: 1;
-            width: calc(25% - 0.6rem); /* 한 줄에 4개가 들어가도록 설정, 1rem은 각 요소 간의 간격을 조정하기 위함 */
-         /* 각 요소 간의 간격을 위한 마진 */
-            margin-top: 0.6rem;
+            width: calc(25% - 0.6rem);
+            flex-grow: 1;
+            height: 4rem;
+            margin: 0.3rem;
             display: flex;
             flex-direction: column;
             @include center();

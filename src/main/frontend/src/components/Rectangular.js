@@ -9,6 +9,7 @@ export const Rectangular = ({ type, data }) => {
     const dispatch = useDispatch();
     const plans = useSelector((state) => state.user.plans);
     const [color, setColor] = useState('#eaedf3');
+    let plan = null;
 
     const handleCheckClick = async (e) => {
         e.stopPropagation();
@@ -18,19 +19,20 @@ export const Rectangular = ({ type, data }) => {
     };
 
     useEffect(() => {
-        if (data && plans.length > 0) {
-            const plan = plans.find((plan) => plan.planId === data.planId);
-            if (plan) {
-                setColor(plan.color);
-            }
+        if (data) {
+            setColor(data.color);
         }
-    }, [data, plans]);
+    }, []);
 
-    if (!data || !plans.length) {
-        return null;
+    if ((!data || !plans.length) && type == 'plan') {
+
+            return null;
     }
 
-    const plan = plans.find((plan) => plan.planId === data.planId);
+   if (type == 'plan') {
+        plan = plans.find((plan) => plan.planId === data.planId);
+   }
+
 
     return (
         <div
@@ -44,7 +46,7 @@ export const Rectangular = ({ type, data }) => {
             </div>
             <div onClick={handleCheckClick}>
                 {type === 'plan' ? (
-                    plan.status === 'COMPLETED' ? (
+                    plan.status === 'INCOMPLETE' ? (
                         <MdCheckBoxOutlineBlank size={15} />
                     ) : (
                         <MdCheckBox size={15} />
