@@ -1,9 +1,12 @@
 import { useSelector } from 'react-redux';
 import { Rectangular } from '../Rectangular';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SelectCategoryModal } from './SelectCategoryModal';
+import { isDateBetween } from '../../function/isDateBetween';
 
-export const PlanModal = ({ isFriend, date, plans, setShowPlanModal }) => {
+export const PlanModal = ({ isFriend, date, setShowPlanModal }) => {
+    const planList = useSelector(state => state.user.plans)
+    const [plans, setPlans] = useState([]); 
     const handleClick = (e) => {
         setShowPlanModal(false);
     };
@@ -17,6 +20,14 @@ export const PlanModal = ({ isFriend, date, plans, setShowPlanModal }) => {
     const handleAddBtnClick = (e) => {
         setShowModal(true);
     };
+
+    useEffect(()=>{
+        if(planList) {
+            setPlans(planList.filter((plan) => isDateBetween(plan.start, plan.end, date)));
+            console.log(planList)
+              
+        }
+    }, [planList, date])
 
     return (
         <>

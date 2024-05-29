@@ -1,6 +1,7 @@
 export const INIT = "USER/INIT"
 export const RESET = "USER/RESET"
 export const DELETE_CATEGORY = 'USER/DELETE_CATEGORY';
+export const DELETE_PLAN = 'USER/DELETE_PLAN';
 export const ADD_PLAN = 'USER/ADD_PLAN';
 export const ADD_CATEGORY = 'USER/ADD_CATEGORY'
 export const ADD_FRIEND = 'USER/ADD_FRIEND'
@@ -10,6 +11,7 @@ export const UPDATE_PLAN = 'USER/UPDATE_PLAN';
 
 export const initUser = user => ({type:INIT, user})
 export const deleteCategory = categoryId => ({ type: DELETE_CATEGORY, categoryId });
+export const deletePlan = (planId) => ({ type: DELETE_PLAN, planId});
 export const addPlan = plan => ({ type: ADD_PLAN, plan})
 export const addCategory = category => ({ type: ADD_CATEGORY, category})
 export const AddFriend = friend => ({ type: ADD_FRIEND , friend});
@@ -17,6 +19,7 @@ export const toggleStatus = planId => ({type: TOGGLE_STATUS, planId})
 export const resetUser = () => ({type: RESET})
 export const updateCategory = (category) => ({ type: UPDATE_CATEGORY, category });
 export const updatePlan = (plan) => ({ type: UPDATE_PLAN, plan});
+
 
 const initialState = {
     userId: null,
@@ -43,13 +46,16 @@ const user = (state = initialState, action) => {
             return initialState;
 
         case DELETE_CATEGORY:
-            const updatePlans = state.plans.filter((plan) => plan.categoryId !== action.categoryId);
-            const updateCategories = state.categories.filter((category) => category.categoryId !== action.categoryId);
-
             return {
                 ...state,
-                plans: updatePlans,
-                categories: updateCategories,
+                plans: state.plans.filter((plan) => plan.categoryId !== action.categoryId),
+                categories: state.categories.filter((category) => category.categoryId !== action.categoryId),
+            };
+
+        case DELETE_PLAN:
+            return {
+                ...state,
+                plans: state.plans.filter((plan) => plan.planId !== action.planId),
             };
 
         case ADD_PLAN:

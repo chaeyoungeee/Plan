@@ -4,7 +4,6 @@ import { MdCheckBox } from 'react-icons/md';
 import { MdCheckBoxOutlineBlank } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleStatus } from '../store/user';
-import { AddPlanModal } from './modals/AddPlanModal';
 import { UpdatePlanModal } from './modals/UpdatePlanModal';
 
 export const Rectangular = ({ type, data }) => {
@@ -42,6 +41,10 @@ export const Rectangular = ({ type, data }) => {
 
    if (type == 'plan') {
         plan = plans.find((plan) => plan.planId === data.planId);
+   }
+
+   if (type =='plan' && plan == null) {
+        return null;
    }
 
 

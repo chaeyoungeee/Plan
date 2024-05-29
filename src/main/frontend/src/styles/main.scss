@@ -401,6 +401,7 @@ body {
         }
     }
     .add-screen {
+    
         color: rgba($color: #000000, $alpha: 0.5);
         font-weight: 700;
         font-size: 0.85rem !important;
@@ -412,6 +413,14 @@ body {
             background-color: transparent;
             border: none;
             
+        }
+
+        .delete-btn {
+            position: relative;
+            left: -0.3rem;
+            &:hover {
+                @include hover-v2();
+            }
         }
         input {
             color: rgba($color: #000000, $alpha: 0.5);
