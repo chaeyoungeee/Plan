@@ -5,6 +5,8 @@ export const ADD_PLAN = 'USER/ADD_PLAN';
 export const ADD_CATEGORY = 'USER/ADD_CATEGORY'
 export const ADD_FRIEND = 'USER/ADD_FRIEND'
 export const TOGGLE_STATUS = 'USER/TOGGLE_STATUS';
+export const UPDATE_CATEGORY = 'USER/UPDATE_CATEGORY'
+
 export const initUser = user => ({type:INIT, user})
 export const deleteCategory = categoryId => ({ type: DELETE_CATEGORY, categoryId });
 export const addPlan = plan => ({ type: ADD_PLAN, plan})
@@ -12,6 +14,7 @@ export const addCategory = category => ({ type: ADD_CATEGORY, category})
 export const AddFriend = friend => ({ type: ADD_FRIEND , friend});
 export const toggleStatus = planId => ({type: TOGGLE_STATUS, planId})
 export const resetUser = () => ({type: RESET})
+export const updateCategory = (category) => ({ type: UPDATE_CATEGORY, category });
 
 const initialState = {
     userId: null,
@@ -36,7 +39,6 @@ const user = (state = initialState, action) => {
 
         case RESET:
             return initialState;
-
 
         case DELETE_CATEGORY:
             const updatePlans = state.plans.filter((plan) => plan.categoryId !== action.categoryId);
@@ -73,6 +75,16 @@ const user = (state = initialState, action) => {
                     plan.planId === action.planId
                         ? { ...plan, status: plan.status === 'COMPLETED' ? 'INCOMPLETE' : 'COMPLETED' }
                         : plan
+                ),
+            };
+
+        case UPDATE_CATEGORY:
+            return {
+                ...state,
+                categories: state.categories.map((category) =>
+                    category.categoryId === action.category.categoryId
+                        ? { ...category, name: action.category.name, color: action.category.color }
+                        : category
                 ),
             };
 

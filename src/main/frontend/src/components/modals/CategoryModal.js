@@ -4,13 +4,15 @@ import { Form, FormControl, FormGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { redirect, useNavigate } from 'react-router-dom';
 import { FiSend } from 'react-icons/fi';
-import { addCategory, addPlan } from '../../store/user';
+import { addCategory, addPlan, updateCategory } from '../../store/user';
 
-export const AddCategoryModal = ({ setShowAddModal }) => {
-    const [formData, setFormData] = useState({ name: '', color: '#fef2d8' });
+export const CategoryModal = ({ type, category, setShowModal }) => {
+    const [formData, setFormData] = useState({ name: category.name, color: category.color });
     const userId = useSelector((state) => state.user.userId);
 
     const dispatch = useDispatch();
+
+    console.log(category)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -18,7 +20,7 @@ export const AddCategoryModal = ({ setShowAddModal }) => {
     };
 
     const handleClick = (e) => {
-        setShowAddModal(false);
+        setShowModal(false);
     };
 
     const handleScreenClick = (e) => {
@@ -29,21 +31,44 @@ export const AddCategoryModal = ({ setShowAddModal }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = {
-            userId: userId,
-            name: formData.name,
-            color: formData.color
-        };
 
-        await axios
-            .post('/category', data)
-            .then((res) => {
+        
 
-               dispatch(addCategory(res.data));
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        if (type == 'new') {
+            const data = {
+                userId: userId,
+                name: formData.name,
+                color: formData.color,
+            };
+
+            await axios
+                .post('/category', data)
+                .then((res) => {
+                    setShowModal(false)
+                    dispatch(addCategory(res.data));
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
+        else if (type == 'update') {
+            const data = {
+                categoryId: category.categoryId,
+                name: formData.name,
+                color: formData.color,
+            };
+
+            await axios
+                .put(`/category/${category.categoryId}`, data)
+                .then((res) => {
+                    setShowModal(false);
+                    dispatch(updateCategory(data))
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        }
+  
     };
 
     return (

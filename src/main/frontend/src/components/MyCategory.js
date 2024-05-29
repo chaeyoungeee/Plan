@@ -3,7 +3,7 @@ import { CategoryV1 } from "./Category";
 import { FiPlus } from 'react-icons/fi';
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { AddCategoryModal } from "./modals/AddCategoryModal";
+import { CategoryModal } from "./modals/CategoryModal";
 
 export const MyCategory = () => {
     
@@ -26,8 +26,16 @@ export const MyCategory = () => {
             {categories.map((category) => (
                 <CategoryV1 key={category.id} category={category} />
             ))}
-                    {showAddModal ? <AddCategoryModal setShowAddModal={setShowAddModal}/> : null}
+            {showAddModal ? (
+                <CategoryModal
+                    setShowModal={setShowAddModal}
+                    type={'new'}
+                    category={{
+                        name: '',
+                        color: '#fef2d8',
+                    }}
+                />
+            ) : null}
         </div>
-
     );
 }

@@ -2,12 +2,16 @@ import axios from 'axios';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { deleteCategory } from '../store/user';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { CategoryModal } from './modals/CategoryModal';
 
 export const CategoryV1 = ({ category }) => {
     const dispatch = useDispatch();
 
-    const handleClick = async () => {
+    const [showUpdateModal, setShowUpdateModal] = useState(false)
+
+    const handleDeleteClick = async (e) => {
+        e.stopPropagation();
         await axios
         .delete(`/category/${category.categoryId}`
         ).then((res)=>{
@@ -16,16 +20,21 @@ export const CategoryV1 = ({ category }) => {
         }) 
     }
 
-    useEffect(()=>{
-        console.log(category)
-    })
+    const handleUpdateClick = async (e) => {
+        setShowUpdateModal(true);
+        
+    }
+
 
     return (
-        <div id="category" style={{ backgroundColor: category.color }}>
-            <div>{category.name}</div>
-            <div className="my-btn delete-btn" onClick={handleClick}>
-                <AiOutlineDelete />
+        <div>
+            <div id="category" onClick={handleUpdateClick} style={{ backgroundColor: category.color }}>
+                <div>{category.name}</div>
+                <div className="my-btn delete-btn" onClick={handleDeleteClick}>
+                    <AiOutlineDelete />
+                </div>
             </div>
+            {showUpdateModal ? <CategoryModal type={'update'} category={category} setShowModal={setShowUpdateModal} /> : null}
         </div>
     );
 };
@@ -40,8 +49,14 @@ export const CategoryV2 = ({ category, setCategory, setShowModal }) => {
         console.log(category);
     });
     return (
-        <div onClick={handleClick} style={{ backgroundColor: category.color }} className="category" id="category-v2">
-            <div>{category.name}</div>
-        </div>
+            <div
+                onClick={handleClick}
+                style={{ backgroundColor: category.color }}
+                className="category"
+                id="category-v2"
+            >
+                <div>{category.name}</div>
+            </div>
+
     );
 };

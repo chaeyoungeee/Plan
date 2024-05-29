@@ -13,7 +13,7 @@ export const Rectangular = ({ type, data }) => {
 
     const handleCheckClick = async (e) => {
         e.stopPropagation();
-        await axios.put(`/plan/${data.planId}`).then((res) => {
+        await axios.put(`/plan/status/${data.planId}`).then((res) => {
             dispatch(toggleStatus(data.planId));
         })
     };

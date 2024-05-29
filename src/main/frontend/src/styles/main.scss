@@ -278,6 +278,10 @@ body {
             @include hover-v2();
         }
     }
+
+    &:hover {
+        @include hover-v2();
+    }
 }
 
     .friends {
@@ -463,7 +467,8 @@ body {
 
         &::-webkit-color-swatch {
         border-radius: 100%;
-        border: none;
+        border: 1px solid;
+        border-color: $light-gray-v2 !important;
     }
     }
 }
