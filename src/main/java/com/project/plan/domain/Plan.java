@@ -32,6 +32,8 @@ public class Plan {
     @Enumerated(EnumType.STRING)
     private PlanStatus status;
 
+    private Long friendPlanId;
+
 
     public static Plan createPlan(User user, Category category, String start, String end, String title) throws ParseException {
         Plan newPlan = new Plan();
@@ -48,6 +50,9 @@ public class Plan {
 
     public void setUser(User user) {
         this.user = user;
+        if (user == null) {
+            return;
+        }
         user.getPlans().add(this);
     }
 

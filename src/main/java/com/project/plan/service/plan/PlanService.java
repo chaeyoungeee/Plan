@@ -5,6 +5,7 @@ import com.project.plan.domain.User;
 import com.project.plan.domain.Plan;
 import com.project.plan.domain.PlanStatus;
 import com.project.plan.dto.plan.AddPlanRequest;
+import com.project.plan.dto.plan.AddPlanWithFriendRequest;
 import com.project.plan.dto.plan.PlanDto;
 import com.project.plan.dto.plan.UpdatePlanRequest;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,8 @@ public interface PlanService {
     List<PlanDto> findByMemberId(Long id);
     Plan findById(Long id);
     List<Plan> findAll();
+
+    void saveWithFriend(AddPlanWithFriendRequest request) throws ParseException;
+
+    void deleteWithFriend(Long id);
 }

@@ -17,6 +17,11 @@ public class CategoryDto {
         categoryId = category.getId();
         name = category.getName();
         color = category.getColor();
-        userId = category.getUser().getId();
+        if (category.getUser() == null) {
+            userId = null;
+        } else {
+            userId = category.getUser().getId();
+        }
+
     }
 }

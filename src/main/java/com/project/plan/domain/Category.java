@@ -28,6 +28,9 @@ public class Category {
 
     public void setUser(User user) {
         this.user = user;
+        if (user == null) {
+            return ;
+        }
         if (!user.getCategories().contains(this)) {
             user.getCategories().add(this);
         }

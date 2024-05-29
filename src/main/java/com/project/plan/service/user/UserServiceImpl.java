@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     public void validateDuplicateUsername(String name) {
         Optional<User> findUser = userRepository.findByUsername(name);
-        if (findUser == null) {
+        if (findUser.isPresent()) {
             throw new IllegalStateException("이미 존재하는 유저네임입니다.");
         }
     }

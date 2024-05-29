@@ -87,6 +87,9 @@ public class InitDb {
             planService.save(plan7);
 
             userService.addFriend(user.getId(), user2.getNickname());
+
+            Category category = Category.createCategory("함께", "#fafafa", null);
+            categoryService.save(category);
         }
     }
 }

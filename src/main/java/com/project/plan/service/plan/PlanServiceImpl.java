@@ -5,6 +5,7 @@ import com.project.plan.domain.Plan;
 import com.project.plan.domain.PlanStatus;
 import com.project.plan.domain.User;
 import com.project.plan.dto.plan.AddPlanRequest;
+import com.project.plan.dto.plan.AddPlanWithFriendRequest;
 import com.project.plan.dto.plan.PlanDto;
 import com.project.plan.dto.plan.UpdatePlanRequest;
 import com.project.plan.repository.category.CategoryRepository;
@@ -104,5 +105,33 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public List<Plan> findAll() {
         return planRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public void saveWithFriend(AddPlanWithFriendRequest request) throws ParseException {
+        User user = userRepository.findById(request.getUserId());
+        User friend = userRepository.findById(request.getFriendId());
+
+        Category category = categoryRepository.findById(8L);
+
+        Plan planEntity1 = Plan.createPlan(user, category, request.getStart(), request.getEnd(), request.getTitle());
+
+        Plan planEntity2 = Plan.createPlan(friend, category, request.getStart(), request.getEnd(), request.getTitle());
+
+        planRepository.save(planEntity1);
+        planRepository.save(planEntity2);
+
+        planEntity1.setFriendPlanId(planEntity2.getId());
+        planEntity2.setFriendPlanId(planEntity1.getId());
+    }
+
+    @Transactional
+    @Override
+    public void deleteWithFriend(Long id) {
+        Plan plan = planRepository.findById(id);
+        Long friendPlanId = plan.getFriendPlanId();
+        planRepository.delete(id);
+        planRepository.delete(friendPlanId);
     }
 }
