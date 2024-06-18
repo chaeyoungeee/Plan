@@ -1,7 +1,7 @@
 package com.project.plan.service;
 
 import com.project.plan.domain.User;
-import com.project.plan.repository.user.UserRepositoryImpl;
+import com.project.plan.repository.user.UserRepository;
 import com.project.plan.service.user.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ public class UserServiceTest {
     UserServiceImpl memberService;
 
     @Autowired
-    UserRepositoryImpl memberRepository;
+    UserRepository memberRepository;
 
     @Test
     @Rollback(value = false)
